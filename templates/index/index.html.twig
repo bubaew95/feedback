@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello IndexController!{% endblock %}
+
+{% block body %}
+
+    {% if error is not defined %}
+        {{ dump(error) }}
+    {% endif %}
+
+{{ form_start(feedbackForm) }}
+    {{ form_row(feedbackForm.name, {label:'Имя'}) }}
+    {{ form_row(feedbackForm.email, {label:'E-mail'}) }}
+    {{ form_row(feedbackForm.message, {label:'Текст обращения'}) }}
+    {{ form_row(feedbackForm.captcha, {label:'Подтвердите что вы не БОТ'}) }}
+{{ form_end(feedbackForm) }}
+
+{% endblock %}
