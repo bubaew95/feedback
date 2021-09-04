@@ -24,7 +24,8 @@ class IndexController extends AbstractController
 
         return $this->render('index/index.html.twig', [
             'feedbackForm' => $form->createView(),
-            'error' => $form->isSubmitted()
+            'captcha' =>
         ]);
     }
+
 }
