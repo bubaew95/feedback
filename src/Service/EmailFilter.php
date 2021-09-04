@@ -10,7 +10,7 @@ class EmailFilter implements EmailFilterInterface
      * @param string $email
      * @return bool
      */
-    public function filter(string $email): bool
+    public function filter(string $email) : bool
     {
         if(preg_match("/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-.]+(ru|com|org)$/i", $email)) {
             return true;

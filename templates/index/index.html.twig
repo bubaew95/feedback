@@ -4,9 +4,6 @@
 
 {% block body %}
 
-    {% if error is not defined %}
-        {{ dump(error) }}
-    {% endif %}
 
 {{ form_start(feedbackForm) }}
     {{ form_row(feedbackForm.name, {label:'Имя'}) }}
@@ -17,7 +14,7 @@
         {{ form_label(feedbackForm.captcha) }}
 
         <div class="row d-flex flex-row align-items-center text-center">
-            <div class="col-sm-1 text-bold">1 + 2 = </div>
+            <div class="col-sm-1 text-bold"> {{ captcha }} </div>
             <div class="col-sm-11">
                 {{ form_widget(feedbackForm.captcha) }}
             </div>

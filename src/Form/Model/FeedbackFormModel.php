@@ -2,6 +2,7 @@
 
 namespace App\Form\Model;
 
+use App\Validator\Captcha;
 use App\Validator\CheckEmail;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -27,6 +28,7 @@ class FeedbackFormModel
 
     /**
      * @Assert\NotBlank(message="Забыли заполнить поле")
+     * @Captcha()
      */
     public $captcha;
 }
