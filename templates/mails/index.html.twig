@@ -3,7 +3,21 @@
 {% block title %}Hello MailsController!{% endblock %}
 
 {% block body %}
-    {% for mails in feedback %}
-         {{ mails.message }}
+    <h3 class="text-center">
+        Обращения пользователя
+    </h3>
+
+    {% for item in messages %}
+        <div class="card my-2">
+            <div class="card-body">
+                <small class="card-title">{{ item.createdat|date("Y-m-d H:i:s") }}</small>
+                <p class="card-text">
+                    {{ item.message }}
+                </p>
+            </div>
+        </div>
+    {% else %}
+        Нет обращений
     {% endfor %}
+
 {% endblock %}

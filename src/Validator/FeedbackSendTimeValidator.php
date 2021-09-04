@@ -4,16 +4,29 @@ namespace App\Validator;
 
 use App\Entity\Feedback;
 use App\Repository\FeedbackRepository;
+use App\Service\FeedbackLastTimeFilter;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 class FeedbackSendTimeValidator extends ConstraintValidator
 {
+    /**
+     * @var FeedbackRepository $feedbackRepository
+     */
     private FeedbackRepository $feedbackRepository;
 
-    public function __construct(FeedbackRepository $feedbackRepository)
+    /**
+     * @var FeedbackLastTimeFilter $lastTimeFilter
+     */
+    private FeedbackLastTimeFilter $lastTimeFilter;
+
+    public function __construct(
+        FeedbackRepository $feedbackRepository,
+        FeedbackLastTimeFilter $lastTimeFilter
+    )
     {
         $this->feedbackRepository = $feedbackRepository;
+        $this->lastTimeFilter = $lastTimeFilter;
     }
 
     public function validate($value, Constraint $constraint)
@@ -29,15 +42,16 @@ class FeedbackSendTimeValidator extends ConstraintValidator
          */
         $lastFeedback = $this->feedbackRepository->findByLastSendForm($value);
 
+        if($lastFeedback && $this->lastTimeFilter->filter($lastFeedback)) {
+            return;
+        }
+
         /**
-         * @var \DateTime $lastFeedbackLastSendTime
+         * @var Feedback $lastFeedback
          */
-        $lastFeedbackLastSendTime = $lastFeedback->getCreatedAt();
-        $lastFeedbackLastSendTime->add(new \DateInterval('PT2M'));
+        $lastFeedbackIp = $this->feedbackRepository->findByLastSendFormIp($_SERVER['REMOTE_ADDR']);
 
-        $date = new \DateTime();
-
-        if($lastFeedbackLastSendTime->getTimestamp() < $date->getTimestamp()) {
+        if($this->lastTimeFilter->filter($lastFeedbackIp)) {
             return;
         }
 

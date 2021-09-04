@@ -2,28 +2,19 @@
 
 namespace App\Service;
 
-use App\Entity\User;
 use App\Form\Model\FeedbackFormModel;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
+use App\Service\MailerInterface as ServiceMailerInterface;
 use Symfony\Component\Mime\Address;
 
-class Mailer
+class Mailer implements ServiceMailerInterface
 {
     private MailerInterface $mailer;
 
     public function __construct(MailerInterface $mailer)
     {
         $this->mailer = $mailer;
-    }
-
-    /**
-     * @return TemplatedEmail
-     */
-    private function templatedEmail() : TemplatedEmail
-    {
-        return (new TemplatedEmail())
-            ->from(new Address('support@mysite.com', 'MySite'));
     }
 
     /**
@@ -58,6 +49,15 @@ class Mailer
             ])
         ;
         return $this->mailer->send($mail);
+    }
+
+    /**
+     * @return TemplatedEmail
+     */
+    private function templatedEmail() : TemplatedEmail
+    {
+        return (new TemplatedEmail())
+            ->from(new Address('support@mysite.com', 'MySite'));
     }
 
 }

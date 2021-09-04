@@ -4,27 +4,25 @@
 
 {% block body %}
 
+    {{ form_start(feedbackForm) }}
+        {{ form_row(feedbackForm.name, {label:'Имя'}) }}
+        {{ form_row(feedbackForm.email, {label:'E-mail'}) }}
+        {{ form_row(feedbackForm.message, {label:'Текст обращения'}) }}
 
+        <div class="form-group mt-3">
+            {{ form_label(feedbackForm.captcha) }}
 
-{{ form_start(feedbackForm) }}
-    {{ form_row(feedbackForm.name, {label:'Имя'}) }}
-    {{ form_row(feedbackForm.email, {label:'E-mail'}) }}
-    {{ form_row(feedbackForm.message, {label:'Текст обращения'}) }}
-
-    <div class="form-group mt-3">
-        {{ form_label(feedbackForm.captcha) }}
-
-        <div class="row d-flex flex-row align-items-center text-center">
-            <div class="col-sm-1 text-bold"> {{ captcha }} </div>
-            <div class="col-sm-11">
-                {{ form_widget(feedbackForm.captcha) }}
+            <div class="row d-flex flex-row align-items-center text-center">
+                <div class="col-sm-1 text-bold"> {{ captcha }} </div>
+                <div class="col-sm-11">
+                    {{ form_widget(feedbackForm.captcha) }}
+                </div>
             </div>
+
+            <small>{{ form_help(feedbackForm.captcha) }}</small>
         </div>
 
-        <small>{{ form_help(feedbackForm.captcha) }}</small>
-    </div>
-
-    <button type="submit" class="btn btn-primary mt-4">Отправить</button>
-{{ form_end(feedbackForm) }}
+        <button type="submit" class="btn btn-primary mt-4">Отправить</button>
+    {{ form_end(feedbackForm) }}
 
 {% endblock %}

@@ -19,6 +19,22 @@ class FeedbackRepository extends ServiceEntityRepository
         parent::__construct($registry, Feedback::class);
     }
 
+    /**
+     * @param $value
+     * @return int|mixed|string|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findByLastSendFormIp($value)
+    {
+        return $this->createQueryBuilder('f')
+            ->andWhere('f.ip = :ip')
+            ->setParameter('ip', $value)
+            ->addOrderBy('f.id', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 
     /**
      * @param $value
