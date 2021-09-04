@@ -36,10 +36,16 @@ class Feedback
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="string", length=15)
+     */
+    private $ip;
+
     public function __construct(User $user, string $message)
     {
-        $this->user = $user;
-        $this->message = $message;
+        $this->user     = $user;
+        $this->message  = $message;
+        $this->ip       = $_SERVER['REMOTE_ADDR'];
     }
 
     public function getId(): ?int
@@ -79,6 +85,18 @@ class Feedback
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getIp(): ?string
+    {
+        return $this->ip;
+    }
+
+    public function setIp(string $ip): self
+    {
+        $this->ip = $ip;
 
         return $this;
     }
