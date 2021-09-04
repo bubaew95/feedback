@@ -1,0 +1,26 @@
+{% extends 'email/base.html.twig' %}
+
+{% block title %} {{ email.subject}} {% endblock %}
+
+{% block body %}
+    <h1 class="name">Письмо с формы обратной связи</h1>
+    <table>
+        <tr>
+            <td>Имя отправителя:</td>
+            <td>{{ feedback.name }}</td>
+        </tr>
+        <tr>
+            <td>Email отправителя:</td>
+            <td>{{ feedback.email }}</td>
+        </tr>
+    </table>
+
+    <div class="text">
+        <h4 class="text-label">Текст обращения</h4>
+        {{ feedback.message }}
+    </div>
+    
+    <div class="row">
+        <a class="btn" href="{{ url('app_mails', {id: userId}) }}">Посмотреть все письма этого отправителя</a>
+    </div>
+{% endblock %}

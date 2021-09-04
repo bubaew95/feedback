@@ -1,0 +1,22 @@
+{% extends 'email/base.html.twig' %}
+
+{% block title %} {{ email.subject}} {% endblock %}
+
+{% block body %}
+    <h1 class="name">Вы оставили заявку с формы обратной связи на сайте MySite.com </h1>
+    <table>
+        <tr>
+            <td>Ваше имя:</td>
+            <td>{{ feedback.name }}</td>
+        </tr>
+        <tr>
+            <td>Ваш email:</td>
+            <td>{{ feedback.email }}</td>
+        </tr>
+    </table>
+
+    <div class="text">
+        <h4 class="text-label">Текст обращения</h4>
+        {{ feedback.message }}
+    </div>
+{% endblock %}

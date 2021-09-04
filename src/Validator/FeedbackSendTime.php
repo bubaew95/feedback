@@ -7,11 +7,11 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class Captcha extends Constraint
+class FeedbackSendTime extends Constraint
 {
     /*
      * Any public properties become valid options for the annotation.
      * Then, use these in your validator class.
      */
-    public $message = 'Некорректное значение "{{ value }}"';
+    public $message = 'Слишком много запросов с вашего адреса, пожалуйста подождите минуту';
 }

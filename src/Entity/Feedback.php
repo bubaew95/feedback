@@ -36,6 +36,12 @@ class Feedback
      */
     private $user;
 
+    public function __construct(User $user, string $message)
+    {
+        $this->user = $user;
+        $this->message = $message;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

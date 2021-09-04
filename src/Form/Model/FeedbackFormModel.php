@@ -4,6 +4,7 @@ namespace App\Form\Model;
 
 use App\Validator\Captcha;
 use App\Validator\CheckEmail;
+use App\Validator\FeedbackSendTime;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class FeedbackFormModel
@@ -15,14 +16,15 @@ class FeedbackFormModel
     public $name;
 
     /**
-     * @Assert\NotBlank (message="Поле 'Емайл' не должен быть пустым")
+     * @Assert\NotBlank (message="Поле не должен быть пустым")
      * @CheckEmail()
+     * @FeedbackSendTime()
      */
     public $email;
 
     /**
-     * @Assert\NotBlank (message="Поле 'Текст обращения' не должен быть пустым")
-     * @Assert\Length (max="4000", maxMessage="'Текст обращения' не должно превышать {limit} знаков")
+     * @Assert\NotBlank (message="Поле не должен быть пустым")
+     * @Assert\Length (max="4000", maxMessage="'Текст обращения' не должно превышать {{ limit }} знаков")
      */
     public $message;
 

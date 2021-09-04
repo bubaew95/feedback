@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MailsController!{% endblock %}
+
+{% block body %}
+    {% for mails in feedback %}
+         {{ mails.message }}
+    {% endfor %}
+{% endblock %}

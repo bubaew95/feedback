@@ -19,22 +19,24 @@ class FeedbackRepository extends ServiceEntityRepository
         parent::__construct($registry, Feedback::class);
     }
 
-    // /**
-    //  * @return Feedback[] Returns an array of Feedback objects
-    //  */
-    /*
-    public function findByExampleField($value)
+
+    /**
+     * @param $value
+     * @return int|mixed|string|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findByLastSendForm($value)
     {
         return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('f.id', 'ASC')
-            ->setMaxResults(10)
+            ->innerJoin('f.user', 'u')
+            ->andWhere('u.email = :email')
+            ->setParameter('email', $value)
+            ->addOrderBy('f.id', 'DESC')
+            ->setMaxResults(1)
             ->getQuery()
-            ->getResult()
+            ->getOneOrNullResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Feedback
