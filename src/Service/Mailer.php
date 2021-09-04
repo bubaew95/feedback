@@ -24,7 +24,7 @@ class Mailer implements ServiceMailerInterface
     public function sendMailUser(FeedbackFormModel $model)
     {
         $mail = $this->templatedEmail()
-            ->to(new Address('info@awardwallet.com', 'AwardWallet'))
+            ->to(new Address($model->email, $model->name))
             ->htmlTemplate('email/feedback-user.html.twig')
             ->context([
                 'feedback' => $model
