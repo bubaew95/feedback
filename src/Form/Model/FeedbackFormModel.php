@@ -17,7 +17,7 @@ class FeedbackFormModel
 
     /**
      * @Assert\NotBlank (message="Поле не должен быть пустым")
-     * @CheckEmail()
+     * @Assert\Email(message="Некорректный Email адрес")
      * @FeedbackSendTime()
      */
     public $email;
