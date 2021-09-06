@@ -3,7 +3,6 @@
 namespace App\Form\Model;
 
 use App\Validator\Captcha;
-use App\Validator\CheckEmail;
 use App\Validator\FeedbackSendTime;
 use Symfony\Component\Validator\Constraints as Assert;
 

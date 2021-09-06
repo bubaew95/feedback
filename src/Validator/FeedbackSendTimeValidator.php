@@ -51,7 +51,7 @@ class FeedbackSendTimeValidator extends ConstraintValidator
          */
         $lastFeedbackIp = $this->feedbackRepository->findByLastSendFormIp($_SERVER['REMOTE_ADDR']);
 
-        if($this->lastTimeFilter->filter($lastFeedbackIp)) {
+        if(!$lastFeedbackIp || $this->lastTimeFilter->filter($lastFeedbackIp)) {
             return;
         }
 
