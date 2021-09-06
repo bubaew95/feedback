@@ -37,7 +37,7 @@ class IndexController extends AbstractController
              * @var FeedbackFormModel $model;
              */
             $model = $form->getData();
-            if($userId = $this->handleFormRequest($model, $userRepository, $em)) {
+            if($userId = $this->handleFormRequest($request, $model, $userRepository, $em)) {
                 $mailer->sendMailUser($model);
                 $mailer->sendMailAdmin($model, $userId);
                 $this->addFlash('flash_message', 'Форма успешно отправлена');
@@ -59,13 +59,14 @@ class IndexController extends AbstractController
      * @return int|null
      */
     private function handleFormRequest(
+        Request $request,
         FeedbackFormModel $model,
         UserRepository  $userRepository,
         EntityManagerInterface $em
     ) : ?int
     {
         $user = $userRepository->findBydEmail($model->email) ?? $this->addUser($model, $em);
-        $feed = $this->addFeedBack($model, $user, $em);
+        $feed = $this->addFeedBack($request, $model, $user, $em);
         $em->flush();
         return $feed ? $user->getId() : null;
     }
@@ -93,12 +94,13 @@ class IndexController extends AbstractController
      * @return Feedback
      */
     private function addFeedBack(
+        Request $request,
         FeedbackFormModel $model,
         User $user,
         EntityManagerInterface $em
     ) : Feedback
     {
-        $feedback = new Feedback($user, $model->message);
+        $feedback = new Feedback($user, $model->message, $request->getClientIp());
         $em->persist($feedback);
         return $feedback;
     }

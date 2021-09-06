@@ -41,11 +41,11 @@ class Feedback
      */
     private $ip;
 
-    public function __construct(User $user, string $message)
+    public function __construct(User $user, string $message, string $ip)
     {
         $this->user     = $user;
         $this->message  = $message;
-        $this->ip       = $_SERVER['REMOTE_ADDR'];
+        $this->ip       = $ip;
     }
 
     public function getId(): ?int
